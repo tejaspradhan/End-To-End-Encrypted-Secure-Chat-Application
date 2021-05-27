@@ -1,61 +1,72 @@
-const chatForm = document.getElementById('chat-form');
-const chatMessages = document.querySelector('.chat-messages');
-const roomName = document.getElementById('room-name');
-const userList = document.getElementById('users');
+const chatForm = document.getElementById("chat-form");
+const chatMessages = document.querySelector(".chat-messages");
+const roomName = document.getElementById("room-name");
+const userList = document.getElementById("users");
 const key = document.querySelector(".key");
 
-//Get username and room from the url 
+//Get username and room from the url
 
-const {username,room} = Qs.parse(location.search,{
-    ignoreQueryPrefix: true
+const { username, room } = Qs.parse(location.search, {
+  ignoreQueryPrefix: true,
 });
 
 console.log(key);
+
 const socket = io();
 
-//Join the exact chatroom
-
-socket.emit('joinRoom', {username,room});
+socket.emit("joinRoom", { username, room });
 
 //Get room users
 
-socket.on('roomUsers',({room,users}) =>{
-    outputRoomName(room);
-    outputUsers(users);
+socket.on("roomUsers", ({ room, users }) => {
+  outputRoomName(room);
+  outputUsers(users);
 });
 
-
 //message from server
-socket.on('message', message => {
+socket.on("message", (message) => {
+  console.log(message);
+  url = "http://localhost:3000/decrypt?message=" + message.text;
+  console.log("URL : " + url);
+  fetch(url)
+    .then((res) => res.json())
+    .then((decrypted) => {
+      console.log("DECRYPTED ", decrypted);
+      outputMessage({
+        username: message.username,
+        text: decrypted,
+        time: message.time,
+      });
+    });
 
-    console.log(message);
-    outputMessage(message);
-
-    //Put scroll function 
-    chatMessages.scrollTop = chatMessages.scrollHeight;
-
-})
+  //Put scroll function
+  chatMessages.scrollTop = chatMessages.scrollHeight;
+});
 
 //On message Submission - Submit button press karne ke baad
 
-chatForm.addEventListener('submit',(x) => {
+chatForm.addEventListener("submit", (x) => {
+  x.preventDefault();
+  const msg = x.target.elements.msg.value; //Get what is written by user in msg
 
-    x.preventDefault();
-    const msg = x.target.elements.msg.value; //Get what is written by user in msg
+  //Emitting msg to server
+  url = "http://localhost:3000/encrypt?message=" + msg;
+  fetch(url)
+    .then((res) => res.json())
+    .then((encrypted) => {
+      socket.emit("chatMessage", encrypted);
+    });
 
-    //Emitting msg to server
-    socket.emit('chatMessage',msg);
-
-    //Every time you submit a message, it will clear your input field but 
-    //keep the cursor their itself(focus)
-    x.target.elements.msg.value = '';
-    x.target.elements.msg.focus();
-})
+  //Every time you submit a message, it will clear your input field but
+  //keep the cursor their itself(focus)
+  x.target.elements.msg.value = "";
+  x.target.elements.msg.focus();
+});
 //output message to DOM
-function outputMessage(message){
-    const div = document.createElement('div');
-    div.classList.add('message');
-    div.innerHTML=`<p class="meta">${message.username} </p>
+function outputMessage(message) {
+  const div = document.createElement("div");
+  div.classList.add("message");
+  div.innerHTML = `<p class="meta">${message.username} </p>
     <p></p>
     <p class="text">
         ${message.text}
@@ -63,21 +74,20 @@ function outputMessage(message){
     <p class="meta" style="
     padding-left: 650px;
     margin-bottom: 0px;"> <span>${message.time}</span></p>`;
-    document.querySelector('.chat-messages').appendChild(div);
-
+  document.querySelector(".chat-messages").appendChild(div);
 }
 
 //Add room name to DOM
 
-function outputRoomName(room){
-    roomName.innerText = room;
+function outputRoomName(room) {
+  roomName.innerText = room;
 }
 
 //Add users name to DOM
 
 function outputUsers(users) {
-    userList.innerHTML = `
-        ${users.map(user => `<li> ${user.username} </li>`).join('')}
-    
+  userList.innerHTML = `
+        ${users.map((user) => `<li> ${user.username} </li>`).join("")}
+
     `;
 }

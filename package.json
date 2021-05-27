@@ -10,6 +10,7 @@
   "author": "Aditya",
   "license": "ISC",
   "dependencies": {
+    "cryptr": "^6.0.2",
     "express": "^4.17.1",
     "moment": "^2.29.1",
     "socket.io": "^4.0.1"
