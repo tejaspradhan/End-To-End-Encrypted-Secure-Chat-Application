@@ -1,6 +1,5 @@
 const path = require("path");
 const http = require("http");
-
 const express = require("express");
 const socketio = require("socket.io");
 const formatMessage = require("./utils/messages");
@@ -9,7 +8,9 @@ const Cryptr = require("cryptr");
 const cryptr = new Cryptr(
   "56dce7276d2b0a24e032beedf0473d743dbacf92aafe898e5a0f8d9898c9eae80a73798beed53489e8dbfd94191c1f28dc58cad12321d8150b93a2e092a744265fd214d7c2ef079e2f01b6d06319b7b2"
 );
-const IVLength = 16;
+
+mongoose.connect("mongodb://localhost/chat_db");
+
 const {
   userJoin,
   getCurrentUser,
@@ -105,6 +106,8 @@ app.get("/encrypt", (req, res) => {
   console.log("LE: " + encrypted.length);
   res.json(encrypted);
 });
+
+app.get("/insert", (req, res) => {});
 const PORT = process.env.PORT || 3000;
 
 server.listen(PORT, () => console.log(`Server running on port ${PORT}`));
