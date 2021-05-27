@@ -44,31 +44,13 @@
 					<div class="form-control">
 							<div class="key">
 							<label for="key">Room Security Key</label>
-							<input type="text" placeholder="Enter Room Security Key..." name="key" id="key"> </input>
+							<input type="password" placeholder="Enter Room Security Key..." name="key" id="key" style="width:420px;height:40px;margin-top: 3px;">
+							</input>
 							</div>
 					</div>
 					<button type="submit" class="btn">Join Chat</button>
 				</form>
 			</main>
 		</div>
-
-		<script>
-			function validate(){
-				roomName = document.getElementById("room").value;
-				key = document.getElementById("key").value;
-				url = "http://localhost:3000/validate?name=" + roomName+"&key="+key;
-				console.log("URL : " + url);
-				const result = fetch(url)
-				.then(res=>res.json())
-				.then(data=>{
-					if(data===true){
-						window.location ="chat.html";
-					}
-					else{
-						window.location = "index.html";
-					}
-				})
-			}
-		</script>
 	</body>
 </html>

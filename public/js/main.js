@@ -7,9 +7,17 @@ const key = document.querySelector(".key");
 console.log("ROOM", roomName, key);
 //Get username and room from the url
 
-const { username, room } = Qs.parse(location.search, {
+const { username, room, sk } = Qs.parse(location.search, {
   ignoreQueryPrefix: true,
 });
+
+if (!sk) {
+  window.location = "index.html";
+}
+
+if (sk.length != 60) {
+  window.location = "index.html";
+}
 
 const socket = io();
 

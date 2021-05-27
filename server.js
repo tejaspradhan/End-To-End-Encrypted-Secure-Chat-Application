@@ -122,7 +122,7 @@ app.post("/validate", (req, res) => {
   key = req.body.key;
   Room.findOne({ name: roomName }, async (err, room) => {
     if (room === null) {
-      res.redirect("/"); // User not Found
+      res.redirect("wrong-password.html"); // User not Found
     }
 
     try {
@@ -130,12 +130,18 @@ app.post("/validate", (req, res) => {
       if (await bcrypt.compare(key, room.secretKey)) {
         rn = room.name;
         usern = username;
-        url = "chat.html?room=" + rn + "&username=" + usern;
+        url =
+          "chat.html?room=" +
+          rn +
+          "&username=" +
+          usern +
+          "&sk=" +
+          room.secretKey;
         console.log(url);
         res.redirect(url); // User not Found
-      } else res.redirect("/"); // Incorrect Password
+      } else res.redirect("wrong-password.html"); // Incorrect Password
     } catch {
-      res.redirect("/"); // unknown error
+      res.redirect("wrong-password.html"); // unknown error
     }
   });
 });
@@ -143,4 +149,3 @@ app.post("/validate", (req, res) => {
 const PORT = process.env.PORT || 3000;
 
 server.listen(PORT, () => console.log(`Server running on port ${PORT}`));
-
