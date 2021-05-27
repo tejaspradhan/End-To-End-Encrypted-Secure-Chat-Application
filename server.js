@@ -6,7 +6,9 @@ const socketio = require("socket.io");
 const formatMessage = require("./utils/messages");
 const { encrypt, decrypt } = require("./utils/cryptography.js");
 const Cryptr = require("cryptr");
-const cryptr = new Cryptr("rhtudhekdoitnjkw");
+const cryptr = new Cryptr(
+  "56dce7276d2b0a24e032beedf0473d743dbacf92aafe898e5a0f8d9898c9eae80a73798beed53489e8dbfd94191c1f28dc58cad12321d8150b93a2e092a744265fd214d7c2ef079e2f01b6d06319b7b2"
+);
 const IVLength = 16;
 const {
   userJoin,
@@ -87,6 +89,8 @@ io.on("connection", (socket) => {
     }
   });
 });
+
+// ROUTES
 
 app.get("/decrypt", (req, res) => {
   message = req.query.message;
