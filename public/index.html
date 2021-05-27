@@ -19,7 +19,7 @@
 				<h1><i class="fas fa-smile"></i> ChatCord</h1>
 			</header>
 			<main class="join-main">
-				<form action="chat.html">
+				<form  action = "/validate" method="POST">
 					<div class="form-control">
 						<label for="username">Username</label>
 						<input
@@ -34,25 +34,44 @@
 						<label for="room">Room</label>
 						<select name="room" id="room">
 							<option value="Cyber Security">CyberSecurity</option>
-							<option value="Algorithms">DAA</option>
+							<option value="Algorithms">Algorithms</option>
 							<option value="Data Science">DataScience</option>
 							<option value="Operating Systems">OperatingSystem</option>
-							<option value="Artificial Intelligence">AI</option>
-							<option value="Software Engineering">ASE</option>
+							<option value="Artificial Intelligence">Artificial Intelligence</option>
+							<option value="Software Engineering">Software Engineering</option>
 						</select>
 					</div>
 					<div class="form-control">
 							<div class="key">
 							<label for="key">Room Security Key</label>
-							<input type="text" placeholder="Enter Room Security Key..."> </input>
+							<input type="text" placeholder="Enter Room Security Key..." name="key" id="key"> </input>
 							</div>
 					</div>
 					<button type="submit" class="btn">Join Chat</button>
 				</form>
 			</main>
-			<form action="createRoom.html">
+			<form >
 				<button type="submit" class="btn">Create New Room</button>
 			</form>
 		</div>
+
+		<script>
+			function validate(){
+				roomName = document.getElementById("room").value;
+				key = document.getElementById("key").value;
+				url = "http://localhost:3000/validate?name=" + roomName+"&key="+key;
+				console.log("URL : " + url);
+				const result = fetch(url)
+				.then(res=>res.json())
+				.then(data=>{
+					if(data===true){
+						window.location ="chat.html";
+					}
+					else{
+						window.location = "index.html";
+					}
+				})
+			}
+		</script>
 	</body>
 </html>

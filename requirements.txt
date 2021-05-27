@@ -1,3 +1,6 @@
 express
 socket-io
 moment
+bcrypt
+mongoose
+cryptr

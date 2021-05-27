@@ -4,13 +4,12 @@ const roomName = document.getElementById("room-name");
 const userList = document.getElementById("users");
 const key = document.querySelector(".key");
 
+console.log("ROOM", roomName, key);
 //Get username and room from the url
 
 const { username, room } = Qs.parse(location.search, {
   ignoreQueryPrefix: true,
 });
-
-console.log(key);
 
 const socket = io();
 
