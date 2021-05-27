@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<link
+			rel="stylesheet"
+			href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css"
+			integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk="
+			crossorigin="anonymous"
+		/>
+		<link rel="stylesheet" href="css/style.css" />
+		<title>ChatCord App</title>
+	</head>
+	<body>
+		<div class="join-container">
+			<header class="join-header">
+				<h1><i class="fas fa-smile"></i> ChatCord</h1>
+			</header>
+			<main class="join-main">
+				<form action="chat.html">
+					
+					<div class="form-control">
+						<label for="room">Room </label>
+						<select name="room" id="room">
+							<option value="CyberSecurity">CyberSecurity</option>
+							<option value="DAA">DAA</option>
+							<option value="DataScience">DataScience</option>
+							<option value="OperatingSystem">OperatingSystem</option>
+							<option value="AI">AI</option>
+							<option value="ASE">ASE</option>
+						</select>
+					</div>
+					<div class="form-control">
+							<div class="key">
+							<label for="key">Enter Room Security key</label>
+							<input type="text" placeholder="Enter security key"> </input>
+							</div>
+					</div>
+					<button type="submit" class="btn">Create Room</button>
+				</form>
+			</main>
+		</div>
+
+
+        <script src="js/main.js"></script>
+	</body>
+</html>
