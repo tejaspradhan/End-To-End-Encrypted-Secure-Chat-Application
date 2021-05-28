@@ -130,13 +130,7 @@ app.post("/validate", (req, res) => {
       if (await bcrypt.compare(key, room.secretKey)) {
         rn = room.name;
         usern = username;
-        url =
-          "chat.html?room=" +
-          rn +
-          "&username=" +
-          usern +
-          "&sk=" +
-          room.secretKey;
+        url = "chat.html?room=" + rn + "&username=" + usern + "&sk=" + room._id;
         console.log(url);
         res.redirect(url); // User not Found
       } else res.redirect("wrong-password.html"); // Incorrect Password

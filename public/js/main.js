@@ -15,7 +15,7 @@ if (!sk) {
   window.location = "index.html";
 }
 
-if (sk.length != 60) {
+if (sk.length != 24) {
   window.location = "index.html";
 }
 
