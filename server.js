@@ -126,7 +126,6 @@ app.post("/validate", (req, res) => {
     }
 
     try {
-      // Login successful
       if (await bcrypt.compare(key, room.secretKey)) {
         rn = room.name;
         usern = username;
