@@ -14,7 +14,7 @@
     "cryptr": "^6.0.2",
     "express": "^4.17.1",
     "moment": "^2.29.1",
-    "mongoose": "^5.12.11",
+    "mongoose": "^5.13.3",
     "socket.io": "^4.0.1"
   },
   "devDependencies": {
